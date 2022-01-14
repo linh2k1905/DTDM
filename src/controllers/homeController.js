@@ -1,4 +1,5 @@
 import db from '../models/index'
+import CRUDServices from '../services/CRUDServices'
 let getHomePage = async (req, res) => {
     try {
         let data = await db.User.findAll();
@@ -14,7 +15,55 @@ let getHomePage = async (req, res) => {
 let getAboutPage = (req, res) => {
     return res.render('./test/about.ejs');
 }
+let getCRUD = (req, res) => {
+    return res.render("crud.ejs", {
+
+    });
+}
+
+let postCRUD = async (req, res) => {
+    let message = await CRUDServices.createNewUser(req.body);
+    console.log(message)
+    return res.send("post crud server");
+}
+let displayCRUD = async (req, res) => {
+    let data = await CRUDServices.getAllUser()
+
+    return res.render('displayCRUD', {
+        dataTable: data
+    });
+}
+let geteditCRUD = async (req, res) => {
+    let userId = req.query.id
+
+    if (userId) {
+        let data = await CRUDServices.getUserById(userId);
+
+        return res.render('editCRUD.ejs', {
+
+            userdata: data
+        })
+
+    }
+    else {
+        return res.send('user not found')
+    }
+}
+let putCRUD = async (req, res) => {
+
+    let allusers = await CRUDServices.updateUserData(req.body);
+
+    return res.render('displayCRUD', {
+        dataTable: allusers
+    });
+
+}
 module.exports = {
     getHomePage: getHomePage,
-    getAboutPage: getAboutPage
+    getAboutPage: getAboutPage,
+    getCRUD: getCRUD,
+    postCRUD: postCRUD,
+    displayCRUD: displayCRUD,
+    geteditCRUD: geteditCRUD,
+    putCRUD: putCRUD
 }

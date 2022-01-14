@@ -10,6 +10,9 @@ let app = express();
 
 //app.use(bodyParser.json);
 //app.use(bodyParser.urlencoded({ extended: true }));
+const urlencode = express.urlencoded({ extended: false })
+app.use(urlencode)
+app.use(express.json())
 configViewEngine(app);
 initWebRoutes(app);
 

@@ -7,10 +7,11 @@ let initWebRoutes = (app) => {
     router.get('/about', homeconstroller.getAboutPage);
 
 
-    router.get('/thaolinh', (req, res) => {
-        return res.send("hello world thao linh");
-
-    })
-    return app.use("/", router)
+    router.get('/crud', homeconstroller.getCRUD);
+    router.get('/display-crud', homeconstroller.displayCRUD);
+    router.post('/post-crud', homeconstroller.postCRUD);
+    router.get('/edit-crud', homeconstroller.geteditCRUD);
+    router.post('/put-crud', homeconstroller.putCRUD);
+    return app.use("/", router);
 }
 module.exports = initWebRoutes
