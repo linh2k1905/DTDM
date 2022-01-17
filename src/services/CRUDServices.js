@@ -1,6 +1,4 @@
-import { reject } from 'bcrypt/promises';
 import bcrypt from 'bcryptjs';
-import { raw } from 'body-parser';
 import db from '../models/index'
 const salt = bcrypt.genSaltSync(10);
 let createNewUser = async (data) => {
